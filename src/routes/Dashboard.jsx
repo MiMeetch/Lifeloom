@@ -5,11 +5,15 @@ import { doc, getDoc } from 'firebase/firestore';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import Slider from '@mui/material/Slider';
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 export default function Dashboard() {
   const [userName, setUserName] = useState('');
@@ -56,9 +60,39 @@ export default function Dashboard() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
-            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                flexGrow: 1,
+              }}
+            >
+              <Box sx={{ width: 300 }}>
+                <Slider
+                  aria-label="Temperature"
+                  defaultValue={30}
+                  getAriaValueText={valuetext}
+                  color="secondary"
+                />
+              </Box>
+              <Box sx={{ width: 300 }}>
+                <Slider
+                  aria-label="Temperature"
+                  defaultValue={30}
+                  getAriaValueText={valuetext}
+                  color="secondary"
+                />
+              </Box>
+              <Box sx={{ width: 300 }}>
+                <Slider
+                  aria-label="Temperature"
+                  defaultValue={30}
+                  getAriaValueText={valuetext}
+                  color="secondary"
+                />
+              </Box>
+            </Box>
             <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>
