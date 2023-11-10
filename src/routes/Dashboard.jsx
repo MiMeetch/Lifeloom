@@ -7,16 +7,13 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
-import Slider from '@mui/material/Slider';
-
-function valuetext(value) {
-  return `${value}°C`;
-}
 
 export default function Dashboard() {
   const [userName, setUserName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +29,7 @@ export default function Dashboard() {
       } else {
         setUserName('');
       }
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -58,7 +56,7 @@ export default function Dashboard() {
               aria-label="menu"
               sx={{ mr: 2 }}
             >
-              <MenuIcon />
+              <SettingsIcon />
             </IconButton>
             <Box
               sx={{
@@ -68,30 +66,7 @@ export default function Dashboard() {
                 flexGrow: 1,
               }}
             >
-              <Box sx={{ width: 300 }}>
-                <Slider
-                  aria-label="Temperature"
-                  defaultValue={30}
-                  getAriaValueText={valuetext}
-                  color="secondary"
-                />
-              </Box>
-              <Box sx={{ width: 300 }}>
-                <Slider
-                  aria-label="Temperature"
-                  defaultValue={30}
-                  getAriaValueText={valuetext}
-                  color="secondary"
-                />
-              </Box>
-              <Box sx={{ width: 300 }}>
-                <Slider
-                  aria-label="Temperature"
-                  defaultValue={30}
-                  getAriaValueText={valuetext}
-                  color="secondary"
-                />
-              </Box>
+              {/* put sliders here */}
             </Box>
             <Button color="inherit" onClick={handleLogout}>
               Logout
@@ -99,7 +74,13 @@ export default function Dashboard() {
           </Toolbar>
         </AppBar>
       </Box>
-      <h1>Hello, {userName}</h1>
+      {isLoading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', m: 'auto' }}>
+          <CircularProgress /> {/* Loading indicator */}
+        </Box>
+      ) : (
+        <h1>Hello, {userName}</h1>
+      )}
     </div>
   );
 }
