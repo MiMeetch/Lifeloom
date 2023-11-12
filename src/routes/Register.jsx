@@ -1,4 +1,3 @@
-import React from 'react';
 import { auth, db } from '../config/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -43,7 +42,7 @@ export default function Register() {
         heightfeet: data.get('heightfeet'),
         heightinches: data.get('heightinches'),
         bodyfat: data.get('bodyfat'),
-        email: email,
+        email: email
       });
 
       navigate(`/dashboard/${user.uid}`);
