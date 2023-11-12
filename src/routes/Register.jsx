@@ -14,6 +14,7 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function Register() {
@@ -108,29 +109,54 @@ export default function Register() {
                 required
                 fullWidth
                 id="weight"
-                label="Weight"
+                label="Weight(lbs)"
                 name="weight"
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                name="exercise"
-                required
-                fullWidth
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Weekly Exercise</InputLabel>
+              <Select
+                labelId="select-label"
                 id="exercise"
-                label="Exercise"
-                autoFocus
-              />
+                name="exercise"
+                label="Weekly Exercise"
+              >
+                <MenuItem value="1.2">No exercise</MenuItem>
+                <MenuItem value="1.375">1-2 Days</MenuItem>
+                <MenuItem value="1.55">3-4 Days</MenuItem>
+                <MenuItem value="1.725">5-6 Days</MenuItem>
+              </Select>
+            </FormControl>
             </Grid>
             
             <Grid item xs={12} sm={6}>
               <TextField
+                fullWidth
+                id="bodyfat"
+                label="Body Fat %"
+                name="heightfeet"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
                 required
                 fullWidth
-                id="height"
-                label="Height"
-                name="height"
+                id="heightfeet"
+                label="Height(feet)"
+                name="heightfeet"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="heightinches"
+                label="Height(inches)"
+                name="heightinches"
               />
             </Grid>
             
