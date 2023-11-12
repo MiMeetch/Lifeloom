@@ -1,4 +1,3 @@
-import React from 'react';
 import { auth, db } from '../config/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -10,6 +9,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField } from '@mui/x-date-pickers/DateField';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function Register() {
@@ -32,7 +36,13 @@ export default function Register() {
       await setDoc(doc(db, 'users', user.uid), {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
-        email: email,
+        dob: data.get('dob'),
+        weight: data.get('weight'),
+        exercise: data.get('exercise'),
+        heightfeet: data.get('heightfeet'),
+        heightinches: data.get('heightinches'),
+        bodyfat: data.get('bodyfat'),
+        email: email
       });
 
       navigate(`/dashboard/${user.uid}`);
@@ -78,6 +88,79 @@ export default function Register() {
                 autoComplete="family-name"
               />
             </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateField']}>
+                  <DemoItem>
+                    <DateField 
+                      name="dob" 
+                      id="dob" 
+                      required 
+                      fullWidth 
+                      label="Date of birth"
+                    />
+                  </DemoItem>
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="weight"
+                label="Weight(lbs)"
+                name="weight"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Weekly Exercise</InputLabel>
+              <Select
+                required
+                id="exercise"
+                name="exercise"
+                label="Weekly Exercise"
+              >
+                <MenuItem value="1.2">No exercise</MenuItem>
+                <MenuItem value="1.375">1-2 Days</MenuItem>
+                <MenuItem value="1.55">3-4 Days</MenuItem>
+                <MenuItem value="1.725">5-6 Days</MenuItem>
+              </Select>
+            </FormControl>
+            </Grid>
+            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                id="bodyfat"
+                label="Body Fat %"
+                name="bodyfat"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="heightfeet"
+                label="Height(feet)"
+                name="heightfeet"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="heightinches"
+                label="Height(inches)"
+                name="heightinches"
+              />
+            </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 required
