@@ -41,7 +41,6 @@ export default function Register() {
         exercise: data.get('exercise'),
         heightfeet: data.get('heightfeet'),
         heightinches: data.get('heightinches'),
-        bodyfat: data.get('bodyfat'),
         email: email
       });
 
@@ -116,32 +115,6 @@ export default function Register() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel id="select-label">Weekly Exercise</InputLabel>
-              <Select
-                required
-                id="exercise"
-                name="exercise"
-                label="Weekly Exercise"
-              >
-                <MenuItem value="1.2">No exercise</MenuItem>
-                <MenuItem value="1.375">1-2 Days</MenuItem>
-                <MenuItem value="1.55">3-4 Days</MenuItem>
-                <MenuItem value="1.725">5-6 Days</MenuItem>
-              </Select>
-            </FormControl>
-            </Grid>
-            
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="bodyfat"
-                label="Body Fat %"
-                name="bodyfat"
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -160,6 +133,23 @@ export default function Register() {
                 name="heightinches"
               />
             </Grid>
+
+            <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Weekly Exercise</InputLabel>
+              <Select
+                required
+                id="exercise"
+                name="exercise"
+                label="Weekly Exercise"
+              >
+                <MenuItem value="1.2">No exercise</MenuItem>
+                <MenuItem value="1.375">1-2 Days</MenuItem>
+                <MenuItem value="1.55">3-4 Days</MenuItem>
+                <MenuItem value="1.725">5-6 Days</MenuItem>
+              </Select>
+            </FormControl>
+            </Grid>
             
             <Grid item xs={12}>
               <TextField
@@ -171,6 +161,7 @@ export default function Register() {
                 autoComplete="email"
               />
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 required
