@@ -10,6 +10,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField } from '@mui/x-date-pickers/DateField';
 import { Link } from 'react-router-dom';
 
 export default function Register() {
@@ -32,6 +36,10 @@ export default function Register() {
       await setDoc(doc(db, 'users', user.uid), {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
+        dob: data.get('dob'),
+        weight: data.get('weight'),
+        exercise: data.get('exercise'),
+        height: data.get('height'),
         email: email,
       });
 
@@ -78,6 +86,54 @@ export default function Register() {
                 autoComplete="family-name"
               />
             </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateField']}>
+                  <DemoItem>
+                    <DateField 
+                      name="dob" 
+                      id="dob" 
+                      required 
+                      fullWidth 
+                      label="Date of birth"
+                    />
+                  </DemoItem>
+                </DemoContainer>
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="weight"
+                label="Weight"
+                name="weight"
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                name="exercise"
+                required
+                fullWidth
+                id="exercise"
+                label="Exercise"
+                autoFocus
+              />
+            </Grid>
+            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="height"
+                label="Height"
+                name="height"
+              />
+            </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 required
