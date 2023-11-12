@@ -40,7 +40,9 @@ export default function Register() {
         dob: data.get('dob'),
         weight: data.get('weight'),
         exercise: data.get('exercise'),
-        height: data.get('height'),
+        heightfeet: data.get('heightfeet'),
+        heightinches: data.get('heightinches'),
+        bodyfat: data.get('bodyfat'),
         email: email,
       });
 
@@ -118,7 +120,7 @@ export default function Register() {
             <FormControl fullWidth>
               <InputLabel id="select-label">Weekly Exercise</InputLabel>
               <Select
-                labelId="select-label"
+                required
                 id="exercise"
                 name="exercise"
                 label="Weekly Exercise"
@@ -136,7 +138,7 @@ export default function Register() {
                 fullWidth
                 id="bodyfat"
                 label="Body Fat %"
-                name="heightfeet"
+                name="bodyfat"
               />
             </Grid>
 
