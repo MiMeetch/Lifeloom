@@ -8,19 +8,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
-import EggIcon from '@mui/icons-material/Egg'; // protein icon
-import OpacityIcon from '@mui/icons-material/Opacity'; // fat icon
-import GrainIcon from '@mui/icons-material/Grain'; // carb icon
+import EggIcon from '@mui/icons-material/Egg';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import GrainIcon from '@mui/icons-material/Grain';
+import BoltIcon from '@mui/icons-material/Bolt';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 
 const API_KEY = '08b52ab823f74e3baa0824b66e42a0ac';
 
 export default function Dashboard() {
-  const [userName, setUserName] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [carbs, setCarbs] = useState(0);
@@ -29,8 +28,26 @@ export default function Dashboard() {
   const [maxCarbs, setMaxCarbs] = useState(0);
   const [maxFats, setMaxFats] = useState(0);
   const [maxProteins, setMaxProteins] = useState(0);
+  const [userWeight, setUserWeight] = useState(0);
+  const [userHeight, setUserHeight] = useState(0);
+  const [userBirthday, setUserBirthday] = useState('');
+  const [userAge, setUserAge] = useState(0);
+  const [userBMR, setUserBMR] = useState(0);
+  const [userExercise, setUserExercise] = useState(0);
+  const [userCalorieCount, setUserCalorieCount] = useState(0);
 
   const navigate = useNavigate();
+
+  const calculateAge = (birthday) => {
+    const birthDate = new Date(birthday);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -38,18 +55,46 @@ export default function Dashboard() {
         const userRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userRef);
         if (userDoc.exists()) {
-          setUserName(userDoc.data().firstName);
+          const weight = userDoc.data().weight;
+          const height =
+            userDoc.data().heightfeet * 12 + userDoc.data().heightinches;
+          const dob = userDoc.data().dob;
+          const age = calculateAge(dob);
+          const exercise = userDoc.data().exercise;
+
+          setUserExercise(exercise);
+          setUserHeight(height);
+          setUserBirthday(dob);
+          setUserAge(age);
+          setUserBMR(655 + 4.35 * weight + 4.7 * height - 4.7 * age);
         } else {
-          console.log('No such document!');
+          console.log('Document does not exist!');
         }
-      } else {
-        setUserName('');
       }
-      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (userWeight && userHeight && userAge) {
+      setUserBMR(655 + 4.35 * userWeight + 4.7 * userHeight - 4.7 * userAge);
+    }
+  }, [userWeight, userHeight, userAge]);
+
+  useEffect(() => {
+    if (userBMR && userExercise) {
+      setUserCalorieCount(userBMR * userExercise);
+    }
+  }, [userBMR, userExercise]);
+
+  useEffect(() => {
+    if (userCalorieCount) {
+      setMaxCarbs(Math.round((userCalorieCount * 0.3) / 4));
+      setMaxFats(Math.round((userCalorieCount * 0.3) / 9));
+      setMaxProteins(Math.round((userCalorieCount * 0.4) / 4));
+    }
+  }, [userCalorieCount]);
 
   const handleLogout = async () => {
     try {
@@ -156,16 +201,34 @@ export default function Dashboard() {
                   </Box>
                 </Paper>
               </Box>
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <BoltIcon />
+                    <span>Daily Calories: {Math.round(userCalorieCount)}</span>
+                  </Box>
+                </Paper>
+                <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <DirectionsRunIcon />
+                    <span>BMR: {Math.round(userBMR)}</span>
+                  </Box>
+                </Paper>
+                <Button color="inherit" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </Box>
             </Box>
             <Box
               sx={{
                 position: 'absolute',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                minWidth: 500,
+                minWidth: 375,
               }}
             >
               <form onSubmit={handleSearchSubmit}>
@@ -175,21 +238,28 @@ export default function Dashboard() {
                   id="search"
                   value={searchInput}
                   onChange={handleSearchChange}
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      padding: '8px 10px',
+                      fontSize: '0.875rem',
+                    },
+                    '& .MuiInputLabel-root': {
+                      top: '-8px',
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      top: 0,
+                      left: 0,
+                    },
+                    shrink: true,
+                  }}
                 />
               </form>
             </Box>
           </Toolbar>
         </AppBar>
       </Box>
-      {isLoading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>
-          Hello, {userName}
-        </h1>
-      )}
       {searchResults.length > 0 && (
         <div
           style={{
@@ -207,17 +277,17 @@ export default function Dashboard() {
               item.nutrition.nutrition.caloricBreakdown ? (
                 <div>
                   <p>
-                    % Carbs:{' '}
+                    % Carbs:
                     {item.nutrition.nutrition.caloricBreakdown.percentCarbs ??
                       'N/A'}
                   </p>
                   <p>
-                    % Fat:{' '}
+                    % Fat:
                     {item.nutrition.nutrition.caloricBreakdown.percentFat ??
                       'N/A'}
                   </p>
                   <p>
-                    % Protein:{' '}
+                    % Protein:
                     {item.nutrition.nutrition.caloricBreakdown.percentProtein ??
                       'N/A'}
                   </p>
