@@ -115,6 +115,7 @@ export default function Dashboard() {
         `https://api.spoonacular.com/food/ingredients/${id}/information?amount=1&apiKey=${API_KEY}`
       );
       const data = await response.json();
+      console.log(data);
       return data;
     } catch (error) {
       console.error('Error fetching nutrition facts: ', error);
@@ -145,6 +146,21 @@ export default function Dashboard() {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     searchIngredients();
+  };
+
+  const nutrientAmount = (item, nutrientName) => {
+    if (
+      item.nutrition.nutrition &&
+      item.nutrition.nutrition.nutrients &&
+      Array.isArray(item.nutrition.nutrition.nutrients)
+    ) {
+      const nutrient = item.nutrition.nutrition.nutrients.find(
+        (n) => n.name === nutrientName
+      );
+      return nutrient ? nutrient.amount.toFixed(2) : 'N/A';
+    } else {
+      return 'N/A';
+    }
   };
 
   return (
@@ -274,22 +290,23 @@ export default function Dashboard() {
             <Paper key={item.id} sx={{ padding: '10px', width: '50%' }}>
               <h3>{item.name}</h3>
               {item.nutrition.nutrition &&
-              item.nutrition.nutrition.caloricBreakdown ? (
+              item.nutrition.nutrition.nutrients ? (
                 <div>
                   <p>
-                    % Carbs:
-                    {item.nutrition.nutrition.caloricBreakdown.percentCarbs ??
-                      'N/A'}
+                    Calories:
+                    {' ' + Math.round(nutrientAmount(item, 'Calories'))}
                   </p>
                   <p>
-                    % Fat:
-                    {item.nutrition.nutrition.caloricBreakdown.percentFat ??
-                      'N/A'}
+                    Carbs:
+                    {' ' + nutrientAmount(item, 'Carbohydrates')} g
                   </p>
                   <p>
-                    % Protein:
-                    {item.nutrition.nutrition.caloricBreakdown.percentProtein ??
-                      'N/A'}
+                    Fats:
+                    {' ' + nutrientAmount(item, 'Fat')} g
+                  </p>
+                  <p>
+                    Protein:
+                    {' ' + nutrientAmount(item, 'Protein')} g
                   </p>
                 </div>
               ) : (
