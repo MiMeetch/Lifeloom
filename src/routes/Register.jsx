@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
@@ -24,6 +23,10 @@ export default function Register() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
+    const weight = parseFloat(data.get('weight'));
+    const exercise = parseFloat(data.get('exercise'));
+    const heightFeet = parseFloat(data.get('heightfeet'));
+    const heightInches = parseFloat(data.get('heightinches'));
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -37,11 +40,11 @@ export default function Register() {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
         dob: data.get('dob'),
-        weight: data.get('weight'),
-        exercise: data.get('exercise'),
-        heightfeet: data.get('heightfeet'),
-        heightinches: data.get('heightinches'),
-        email: email
+        weight: weight,
+        exercise: exercise,
+        heightfeet: heightFeet,
+        heightinches: heightInches,
+        email: email,
       });
 
       navigate(`/dashboard/${user.uid}`);
@@ -87,23 +90,17 @@ export default function Register() {
                 autoComplete="family-name"
               />
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DateField']}>
-                  <DemoItem>
-                    <DateField 
-                      name="dob" 
-                      id="dob" 
-                      required 
-                      fullWidth 
-                      label="Date of birth"
-                    />
-                  </DemoItem>
-                </DemoContainer>
+                <DateField
+                  name="dob"
+                  id="dob"
+                  required
+                  fullWidth
+                  label="Date of birth"
+                />
               </LocalizationProvider>
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -113,7 +110,6 @@ export default function Register() {
                 name="weight"
               />
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -123,7 +119,6 @@ export default function Register() {
                 name="heightfeet"
               />
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -133,24 +128,22 @@ export default function Register() {
                 name="heightinches"
               />
             </Grid>
-
             <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel id="select-label">Weekly Exercise</InputLabel>
-              <Select
-                required
-                id="exercise"
-                name="exercise"
-                label="Weekly Exercise"
-              >
-                <MenuItem value="1.2">No exercise</MenuItem>
-                <MenuItem value="1.375">1-2 Days</MenuItem>
-                <MenuItem value="1.55">3-4 Days</MenuItem>
-                <MenuItem value="1.725">5-6 Days</MenuItem>
-              </Select>
-            </FormControl>
+              <FormControl fullWidth>
+                <InputLabel id="select-label">Weekly Exercise</InputLabel>
+                <Select
+                  required
+                  id="exercise"
+                  name="exercise"
+                  label="Weekly Exercise"
+                >
+                  <MenuItem value="1.2">No exercise</MenuItem>
+                  <MenuItem value="1.375">1-2 Days</MenuItem>
+                  <MenuItem value="1.55">3-4 Days</MenuItem>
+                  <MenuItem value="1.725">5-6 Days</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
-            
             <Grid item xs={12}>
               <TextField
                 required
@@ -161,7 +154,6 @@ export default function Register() {
                 autoComplete="email"
               />
             </Grid>
-
             <Grid item xs={12}>
               <TextField
                 required
