@@ -126,16 +126,34 @@ export default function Dashboard() {
                   <SettingsIcon />
                 </IconButton>
                 <Paper sx={{ padding: '5px', marginRight: '10px' }}>
-                  <GrainIcon />
-                  Carbs: {carbs}g/{maxCarbs}g
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <GrainIcon />
+                    <span>
+                      Carbs: {carbs}g/{maxCarbs}g
+                    </span>
+                  </Box>
                 </Paper>
                 <Paper sx={{ padding: '5px', marginRight: '10px' }}>
-                  <OpacityIcon />
-                  Fats: {fats}g/{maxFats}g
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <OpacityIcon />
+                    <span>
+                      Fats: {fats}g/{maxFats}g
+                    </span>
+                  </Box>
                 </Paper>
                 <Paper sx={{ padding: '5px', marginRight: '10px' }}>
-                  <EggIcon />
-                  Proteins: {proteins}g/{maxProteins}g
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <EggIcon />
+                    <span>
+                      Proteins: {proteins}g/{maxProteins}g
+                    </span>
+                  </Box>
                 </Paper>
               </Box>
               <Button color="inherit" onClick={handleLogout}>
