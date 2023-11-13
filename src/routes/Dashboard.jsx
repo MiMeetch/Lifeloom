@@ -12,6 +12,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
+import EggIcon from '@mui/icons-material/Egg'; // protein icon
+import OpacityIcon from '@mui/icons-material/Opacity'; // fat icon
+import GrainIcon from '@mui/icons-material/Grain'; // carb icon
 
 const API_KEY = '08b52ab823f74e3baa0824b66e42a0ac';
 
@@ -20,6 +23,13 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [carbs, setCarbs] = useState(0);
+  const [fats, setFats] = useState(0);
+  const [proteins, setProteins] = useState(0);
+  const [maxCarbs, setMaxCarbs] = useState(0);
+  const [maxFats, setMaxFats] = useState(0);
+  const [maxProteins, setMaxProteins] = useState(0);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,43 +107,59 @@ export default function Dashboard() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="settings"
-              sx={{ mr: 2 }}
-            >
-              <SettingsIcon />
-            </IconButton>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                flexGrow: 1,
+                justifyContent: 'space-between',
+                width: '100%',
+                alignItems: 'center',
               }}
             >
-              <Box
-                sx={{
-                  minWidth: 500,
-                  maxWidth: '100%',
-                }}
-              >
-                <form onSubmit={handleSearchSubmit}>
-                  <TextField
-                    fullWidth
-                    label="Search Ingredients"
-                    id="search"
-                    value={searchInput}
-                    onChange={handleSearchChange}
-                  />
-                </form>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="settings"
+                  sx={{ mr: 2 }}
+                >
+                  <SettingsIcon />
+                </IconButton>
+                <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+                  <GrainIcon />
+                  Carbs: {carbs}g/{maxCarbs}g
+                </Paper>
+                <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+                  <OpacityIcon />
+                  Fats: {fats}g/{maxFats}g
+                </Paper>
+                <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+                  <EggIcon />
+                  Proteins: {proteins}g/{maxProteins}g
+                </Paper>
               </Box>
+              <Button color="inherit" onClick={handleLogout}>
+                Logout
+              </Button>
             </Box>
-            <Button color="inherit" onClick={handleLogout}>
-              Logout
-            </Button>
+            <Box
+              sx={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                minWidth: 500,
+              }}
+            >
+              <form onSubmit={handleSearchSubmit}>
+                <TextField
+                  fullWidth
+                  label="Search Ingredients"
+                  id="search"
+                  value={searchInput}
+                  onChange={handleSearchChange}
+                />
+              </form>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
