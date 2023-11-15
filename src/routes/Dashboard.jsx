@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import UserDrawer from '../components/UserDrawer'
+import UserModal from '../components/UserModal'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -166,7 +166,6 @@ export default function Dashboard() {
 
   return (
     <div>
-      <UserDrawer />
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
