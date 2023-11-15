@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../config/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import UserModal from '../components/UserModal'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,6 +16,7 @@ import OpacityIcon from '@mui/icons-material/Opacity';
 import GrainIcon from '@mui/icons-material/Grain';
 import BoltIcon from '@mui/icons-material/Bolt';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import './dashboard.css'
 
 const API_KEY = '08b52ab823f74e3baa0824b66e42a0ac';
 
@@ -36,6 +36,8 @@ export default function Dashboard() {
   const [userBMR, setUserBMR] = useState(0);
   const [userExercise, setUserExercise] = useState(0);
   const [userCalorieCount, setUserCalorieCount] = useState(0);
+  const [isSettingsBoxVisible, setIsSettingsBoxVisible] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -178,15 +180,16 @@ export default function Dashboard() {
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="settings"
-                  sx={{ mr: 2 }}
-                >
-                  <SettingsIcon />
-                </IconButton>
+              <IconButton
+                onClick={() => setIsSettingsBoxVisible(!isSettingsBoxVisible)}
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="settings"
+                sx={{ mr: 2 }}
+              >
+                <SettingsIcon />
+              </IconButton>
                 <Paper sx={{ padding: '5px', marginRight: '10px' }}>
                   <Box
                     sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}
@@ -276,6 +279,11 @@ export default function Dashboard() {
             </Box>
           </Toolbar>
         </AppBar>
+        <Paper />
+        <aside className={`settings-box ${isSettingsBoxVisible ? 'visible' : ''}`}>
+          {/* Your content here */}
+          <span className="close-button" onClick={() => setIsSettingsBoxVisible(false)}>X</span>
+        </aside>
       </Box>
       {searchResults.length > 0 && (
         <div

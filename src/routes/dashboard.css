@@ -1,0 +1,22 @@
+.settings-box {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .settings-box.visible {
+    transform: translateX(0);
+  }
+  
+  .close-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
