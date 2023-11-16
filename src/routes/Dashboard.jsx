@@ -21,6 +21,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import "./dashboard.css";
 
 const API_KEY = "08b52ab823f74e3baa0824b66e42a0ac";
@@ -42,6 +44,7 @@ export default function Dashboard() {
   const [userExercise, setUserExercise] = useState(0);
   const [userCalorieCount, setUserCalorieCount] = useState(0);
   const [isSettingsBoxVisible, setIsSettingsBoxVisible] = useState(false);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -189,12 +192,17 @@ export default function Dashboard() {
         setUserExercise(exercise);
 
         console.log("User updated successfully");
+        handleSnackbarOpen();
       } else {
         console.error("User not found.");
       }
     } catch (error) {
       console.error("Error updating user information:", error.message);
     }
+  };
+
+  const handleSnackbarOpen = () => {
+    setIsSnackbarOpen(true);
   };
 
   return (
@@ -375,6 +383,20 @@ export default function Dashboard() {
               </Box>
             </Container>
           }
+          <Snackbar
+            open={isSnackbarOpen}
+            autoHideDuration={6000}
+            onClose={() => setIsSnackbarOpen(false)}
+          >
+            <MuiAlert
+              elevation={6}
+              variant="filled"
+              onClose={() => setIsSnackbarOpen(false)}
+              severity="success"
+            >
+              Body metrics updated successfully!
+            </MuiAlert>
+          </Snackbar>
           <span
             className="close-button"
             onClick={() => setIsSettingsBoxVisible(false)}
