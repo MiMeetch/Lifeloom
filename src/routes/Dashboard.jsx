@@ -408,6 +408,7 @@ export default function Dashboard() {
             variant="filled"
             onClose={() => setIsSnackbarOpen(false)}
             severity="success"
+            style={{ marginBottom: '100px' }}
           >
             Updated successfully!
           </MuiAlert>
