@@ -25,6 +25,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import './dashboard.css';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 const API_KEY = '08b52ab823f74e3baa0824b66e42a0ac';
 
@@ -46,6 +47,8 @@ export default function Dashboard() {
   const [userCalorieCount, setUserCalorieCount] = useState(0);
   const [isSettingsBoxVisible, setIsSettingsBoxVisible] = useState(false);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [groceryList, setGroceryList] = useState([]);
+  const [isGroceryListVisible, setIsGroceryListVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -206,6 +209,23 @@ export default function Dashboard() {
     setIsSnackbarOpen(true);
   };
 
+  const addToGroceryList = (item) => {
+    setGroceryList((prevList) => [...prevList, item]);
+    setCarbs(carbs + parseFloat(nutrientAmount(item, 'Carbohydrates')));
+    setFats(fats + parseFloat(nutrientAmount(item, 'Fat')));
+    setProteins(proteins + parseFloat(nutrientAmount(item, 'Protein')));
+  };
+
+  const removeFromGroceryList = (index) => {
+    const itemToRemove = groceryList[index];
+
+    setCarbs(carbs - parseFloat(nutrientAmount(itemToRemove, 'Carbohydrates')));
+    setFats(fats - parseFloat(nutrientAmount(itemToRemove, 'Fat')));
+    setProteins(proteins - parseFloat(nutrientAmount(itemToRemove, 'Protein')));
+
+    setGroceryList(groceryList.filter((_, i) => i !== index));
+  };
+
   return (
     <div>
       <AppBar position="sticky" sx={{ zIndex: 2 }}>
@@ -233,7 +253,7 @@ export default function Dashboard() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <GrainIcon />
                   <span>
-                    Carbs: {carbs}g/{maxCarbs}g
+                    Carbs: {Math.round(carbs)}/{maxCarbs}g
                   </span>
                 </Box>
               </Paper>
@@ -241,7 +261,7 @@ export default function Dashboard() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <OpacityIcon />
                   <span>
-                    Fats: {fats}g/{maxFats}g
+                    Fats: {Math.round(fats)}/{maxFats}g
                   </span>
                 </Box>
               </Paper>
@@ -249,7 +269,7 @@ export default function Dashboard() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <EggIcon />
                   <span>
-                    Proteins: {proteins}g/{maxProteins}g
+                    Proteins: {Math.round(proteins)}/{maxProteins}g
                   </span>
                 </Box>
               </Paper>
@@ -267,6 +287,11 @@ export default function Dashboard() {
                   <span>BMR: {Math.round(userBMR)}</span>
                 </Box>
               </Paper>
+              <IconButton
+                onClick={() => setIsGroceryListVisible(!isGroceryListVisible)}
+              >
+                <ListAltIcon style={{ color: 'white' }} />
+              </IconButton>
               <Button color="inherit" onClick={handleLogout}>
                 Logout
               </Button>
@@ -317,7 +342,7 @@ export default function Dashboard() {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 35,
+                marginTop: 20,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -431,10 +456,33 @@ export default function Dashboard() {
               ) : (
                 <p>Nutrition data not available</p>
               )}
+              <Button onClick={() => addToGroceryList(item)}>
+                Add to Food List
+              </Button>
             </Paper>
           ))}
         </div>
       )}
+      <aside
+        className={`grocery-list ${isGroceryListVisible ? 'visible' : ''}`}
+        style={{ padding: '10px' }}
+      >
+        <h1>Food List</h1>
+        {groceryList.map((item, index) => (
+          <Paper
+            key={index}
+            sx={{ padding: '10px', width: '100%', margin: '10px 0px' }}
+          >
+            <h3>{item.name}</h3>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <p>C: {nutrientAmount(item, 'Carbohydrates')}g</p>
+              <p>F: {nutrientAmount(item, 'Fat')}g</p>
+              <p>P: {nutrientAmount(item, 'Protein')}g</p>
+            </div>
+            <Button onClick={() => removeFromGroceryList(index)}>Remove</Button>
+          </Paper>
+        ))}
+      </aside>
     </div>
   );
 }

@@ -8,6 +8,7 @@
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
+  margin-top: 64px;
 }
 
 .settings-box.visible {
@@ -16,7 +17,24 @@
 
 .close-button {
   position: absolute;
-  bottom: 20px;
+  bottom: 84px;
   right: 20px;
   cursor: pointer;
+}
+
+.grocery-list {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 23%;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  margin-top: 64px;
+}
+
+.grocery-list.visible {
+  transform: translateX(0);
 }
