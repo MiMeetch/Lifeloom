@@ -23,6 +23,7 @@ import Container from "@mui/material/Container";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 import "./dashboard.css";
 
 const API_KEY = "08b52ab823f74e3baa0824b66e42a0ac";
@@ -385,8 +386,10 @@ export default function Dashboard() {
           }
           <Snackbar
             open={isSnackbarOpen}
-            autoHideDuration={6000}
+            autoHideDuration={5000}
             onClose={() => setIsSnackbarOpen(false)}
+            TransitionComponent={Slide}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           >
             <MuiAlert
               elevation={6}
@@ -394,7 +397,7 @@ export default function Dashboard() {
               onClose={() => setIsSnackbarOpen(false)}
               severity="success"
             >
-              Body metrics updated successfully!
+              Updated successfully!
             </MuiAlert>
           </Snackbar>
           <span
