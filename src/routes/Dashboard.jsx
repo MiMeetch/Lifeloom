@@ -185,7 +185,10 @@ export default function Dashboard() {
           exercise: exercise,
         });
 
-          console.log("User updated successfully");
+        setUserWeight(weight);
+        setUserExercise(exercise);
+
+        console.log("User updated successfully");
       } else {
         console.error("User not found.");
       }
