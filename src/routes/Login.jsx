@@ -41,11 +41,11 @@ export default function Login() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-          backdropFilter: 'blur(10px)', 
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
           borderRadius: '10px',
-          padding: '20px', 
+          padding: '20px',
         }}
       >
         <Typography component="h1" variant="h5" color={'white'}>
@@ -90,11 +90,12 @@ export default function Login() {
             Login
           </Button>
           <Button
-          onClick={() => navigate('/register')}
-          fullWidth
-          variant="contained"
-          sx={{ mt: 1 }}>
-            Don't have an account? Sign Up!
+            onClick={() => navigate('/register')}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1 }}
+          >
+            Sign Up
           </Button>
         </Box>
       </Box>

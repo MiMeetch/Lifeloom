@@ -252,7 +252,16 @@ export default function Dashboard() {
               >
                 <SettingsIcon />
               </IconButton>
-              <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+              <Paper
+                sx={{
+                  padding: '5px',
+                  marginRight: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '10px',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <GrainIcon />
                   <span>
@@ -260,7 +269,16 @@ export default function Dashboard() {
                   </span>
                 </Box>
               </Paper>
-              <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+              <Paper
+                sx={{
+                  padding: '5px',
+                  marginRight: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '10px',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <OpacityIcon />
                   <span>
@@ -268,7 +286,16 @@ export default function Dashboard() {
                   </span>
                 </Box>
               </Paper>
-              <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+              <Paper
+                sx={{
+                  padding: '5px',
+                  marginRight: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '10px',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <EggIcon />
                   <span>
@@ -278,13 +305,31 @@ export default function Dashboard() {
               </Paper>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+              <Paper
+                sx={{
+                  padding: '5px',
+                  marginRight: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '10px',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <BoltIcon />
                   <span>Daily Calories: {Math.round(userCalorieCount)}</span>
                 </Box>
               </Paper>
-              <Paper sx={{ padding: '5px', marginRight: '10px' }}>
+              <Paper
+                sx={{
+                  padding: '5px',
+                  marginRight: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  borderRadius: '10px',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <DirectionsRunIcon />
                   <span>BMR: {Math.round(userBMR)}</span>
@@ -388,11 +433,11 @@ export default function Dashboard() {
                         id="exercise"
                         name="exercise"
                         label="Weekly Exercise"
-                        startAdornment={(
+                        startAdornment={
                           <InputAdornment position="start">
                             <FitnessCenterIcon />
                           </InputAdornment>
-                        )}
+                        }
                       >
                         <MenuItem value="1.2">No exercise</MenuItem>
                         <MenuItem value="1.375">1-2 Days</MenuItem>

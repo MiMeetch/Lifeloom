@@ -62,11 +62,11 @@ export default function Register() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-          backdropFilter: 'blur(10px)', 
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
-          borderRadius: '10px', 
-          padding: '20px', 
+          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          borderRadius: '10px',
+          padding: '20px',
         }}
       >
         <Typography component="h1" variant="h5" color={'white'}>
@@ -180,10 +180,11 @@ export default function Register() {
             Sign Up
           </Button>
           <Button
-          onClick={() => navigate('/login')}
-          fullWidth
-          variant="contained"
-          sx={{ mt: 1 }}>
+            onClick={() => navigate('/login')}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1 }}
+          >
             Already have an account? Login!
           </Button>
         </Box>
