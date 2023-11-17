@@ -41,9 +41,14 @@ export default function Login() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          backgroundColor: 'rgba(255, 255, 255, 0.2)', // semi-transparent white
+          backdropFilter: 'blur(10px)', // blur effect
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // optional shadow
+          borderRadius: '10px', // optional rounded corners
+          padding: '20px', // optional padding
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" color={'white'}>
           Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -84,12 +89,14 @@ export default function Login() {
           >
             Login
           </Button>
-          <Button to="/register"
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 1 }}>
-            Don't have an account? Sign Up!
+          <Button
+            to="/register"
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1 }}
+          >
+            Sign Up
           </Button>
         </Box>
       </Box>
