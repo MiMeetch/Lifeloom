@@ -8,6 +8,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import MonitorWeightIcon from '@mui/icons-material/MonitorWeight';
+import InputAdornment from '@mui/material/InputAdornment';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -365,6 +368,13 @@ export default function Dashboard() {
                       id="weight"
                       label="Weight(lbs)"
                       name="weight"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MonitorWeightIcon />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -375,6 +385,11 @@ export default function Dashboard() {
                         id="exercise"
                         name="exercise"
                         label="Weekly Exercise"
+                        startAdornment={(
+                          <InputAdornment position="start">
+                            <FitnessCenterIcon />
+                          </InputAdornment>
+                        )}
                       >
                         <MenuItem value="1.2">No exercise</MenuItem>
                         <MenuItem value="1.375">1-2 Days</MenuItem>
