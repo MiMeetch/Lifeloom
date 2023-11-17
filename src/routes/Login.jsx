@@ -51,7 +51,7 @@ export default function Login() {
         <Typography component="h1" variant="h5" color={'white'}>
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 10 }}>
           <TextField
             margin="normal"
             required
@@ -89,14 +89,12 @@ export default function Login() {
           >
             Login
           </Button>
-          <Button
-            to="/register"
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 1 }}
-          >
-            Sign Up
+          <Button to="/register"
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 1 }}>
+            Don't have an account? Sign Up!
           </Button>
         </Box>
       </Box>
