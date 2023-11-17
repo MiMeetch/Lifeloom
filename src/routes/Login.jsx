@@ -41,17 +41,17 @@ export default function Login() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', // semi-transparent white
-          backdropFilter: 'blur(10px)', // blur effect
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // optional shadow
-          borderRadius: '10px', // optional rounded corners
-          padding: '20px', // optional padding
+          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+          backdropFilter: 'blur(10px)', 
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+          borderRadius: '10px',
+          padding: '20px', 
         }}
       >
         <Typography component="h1" variant="h5" color={'white'}>
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 10 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate>
           <TextField
             margin="normal"
             required
