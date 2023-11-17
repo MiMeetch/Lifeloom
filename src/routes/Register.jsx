@@ -179,13 +179,13 @@ export default function Register() {
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+          <Button
+          onClick={() => navigate('/login')}
+          fullWidth
+          variant="contained"
+          sx={{ mt: 1 }}>
+            Already have an account? Login!
+          </Button>
         </Box>
       </Box>
     </Container>

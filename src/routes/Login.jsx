@@ -89,8 +89,8 @@ export default function Login() {
           >
             Login
           </Button>
-          <Button to="/register"
-          type="submit"
+          <Button
+          onClick={() => navigate('/register')}
           fullWidth
           variant="contained"
           sx={{ mt: 1 }}>
