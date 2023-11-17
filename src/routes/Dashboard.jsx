@@ -316,6 +316,8 @@ export default function Dashboard() {
                   '& .MuiInputBase-input': {
                     padding: '8px 10px',
                     fontSize: '0.875rem',
+                    color: 'white',
+                    borderColor: 'white',
                   },
                   '& .MuiInputLabel-root': {
                     top: '-8px',
@@ -325,6 +327,7 @@ export default function Dashboard() {
                   style: {
                     top: 0,
                     left: 0,
+                    color: 'white',
                   },
                   shrink: true,
                 }}

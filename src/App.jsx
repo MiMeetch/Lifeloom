@@ -5,6 +5,8 @@ import Dashboard from './routes/Dashboard';
 import './App.css';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './config/theme';
 
 const ProtectedRoute = () => {
   const { currentUser } = useAuth();
@@ -14,14 +16,16 @@ const ProtectedRoute = () => {
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard/:id" element={<Dashboard />} />
-        </Route>
-      </Routes>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard/:id" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }
