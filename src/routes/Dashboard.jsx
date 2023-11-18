@@ -29,6 +29,7 @@ import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import './dashboard.css';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
 const API_KEY = '08b52ab823f74e3baa0824b66e42a0ac';
 
@@ -490,31 +491,73 @@ export default function Dashboard() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '10px',
-            marginTop: '20px',
+            gap: '5px',
+            marginTop: '5px',
           }}
         >
           {searchResults.map((item) => (
-            <Paper key={item.id} sx={{ padding: '10px', width: '50%' }}>
-              <h3>{item.name}</h3>
+            <Paper
+              key={item.id}
+              sx={{
+                width: '50%',
+                padding: '5px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                borderRadius: '10px',
+                marginTop: '5px',
+              }}
+            >
+              <h3
+                style={{
+                  margin: 0,
+                  marginRight: 4,
+                }}
+              >
+                {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+              </h3>
               {item.nutrition.nutrition &&
               item.nutrition.nutrition.nutrients ? (
-                <div>
-                  <p>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                      marginRight: 4,
+                    }}
+                  >
                     Calories:
                     {' ' + Math.round(nutrientAmount(item, 'Calories'))}
                   </p>
-                  <p>
+                  <p
+                    style={{
+                      margin: 0,
+                      marginRight: 4,
+                    }}
+                  >
                     Carbs:
-                    {' ' + nutrientAmount(item, 'Carbohydrates')} g
+                    {' ' + Math.round(nutrientAmount(item, 'Carbohydrates'))}g
                   </p>
-                  <p>
+                  <p
+                    style={{
+                      margin: 0,
+                      marginRight: 4,
+                    }}
+                  >
                     Fats:
-                    {' ' + nutrientAmount(item, 'Fat')} g
+                    {' ' + Math.round(nutrientAmount(item, 'Fat'))}g
                   </p>
-                  <p>
+                  <p
+                    style={{
+                      margin: 0,
+                      marginRight: 4,
+                    }}
+                  >
                     Protein:
-                    {' ' + nutrientAmount(item, 'Protein')} g
+                    {' ' + Math.round(nutrientAmount(item, 'Protein'))}g
                   </p>
                 </div>
               ) : (
@@ -531,17 +574,76 @@ export default function Dashboard() {
         className={`grocery-list ${isGroceryListVisible ? 'visible' : ''}`}
         style={{ padding: '10px' }}
       >
-        <h1>Food List</h1>
+        <Paper
+          sx={{
+            padding: '5px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            borderRadius: '10px',
+            backgroundColor: '#CBB08B',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              justifyContent: 'center',
+            }}
+          >
+            <LocalGroceryStoreIcon />
+            <span>Grocery List</span>
+          </Box>
+        </Paper>
         {groceryList.map((item, index) => (
           <Paper
             key={index}
-            sx={{ padding: '10px', width: '100%', margin: '10px 0px' }}
+            sx={{
+              padding: '5px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              borderRadius: '10px',
+              backgroundColor: '#CBB08B',
+              marginTop: '10px',
+            }}
           >
-            <h3>{item.name}</h3>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <p>C: {nutrientAmount(item, 'Carbohydrates')}g</p>
-              <p>F: {nutrientAmount(item, 'Fat')}g</p>
-              <p>P: {nutrientAmount(item, 'Protein')}g</p>
+            <h3
+              style={{
+                margin: 0,
+              }}
+            >
+              {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+            </h3>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                padding: 0,
+                justifyContent: 'space-between',
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  marginRight: 4,
+                }}
+              >
+                Carbs: {Math.round(nutrientAmount(item, 'Carbohydrates'))}g
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  marginRight: 4,
+                }}
+              >
+                Fat: {Math.round(nutrientAmount(item, 'Fat'))}g
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  marginRight: 4,
+                }}
+              >
+                Protein: {Math.round(nutrientAmount(item, 'Protein'))}g
+              </p>
             </div>
             <Button onClick={() => removeFromGroceryList(index)}>Remove</Button>
           </Paper>
